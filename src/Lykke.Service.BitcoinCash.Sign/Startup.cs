@@ -5,6 +5,7 @@ using Autofac.Extensions.DependencyInjection;
 using AzureStorage.Tables;
 using Common.Log;
 using Lykke.BitcoinCash.Sign.Services;
+using Lykke.Common.Api.Contract.Responses;
 using Lykke.Common.ApiLibrary.Middleware;
 using Lykke.Common.ApiLibrary.Swagger;
 using Lykke.Logs;
@@ -94,7 +95,7 @@ namespace Lykke.Service.BitcoinCash.Sign
                 {
                     if (ex is BusinessException clientError)
                     {
-                        var response = ErrorResponse.Create();
+                        var response = ErrorResponse.Create(clientError.Text);
                         response.AddModelError(clientError.Code.ToString(), clientError.Text);
 
                         return response;

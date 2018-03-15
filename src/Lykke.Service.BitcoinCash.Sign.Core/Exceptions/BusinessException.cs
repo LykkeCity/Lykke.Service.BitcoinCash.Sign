@@ -4,8 +4,8 @@ namespace Lykke.Service.BitcoinCash.Sign.Core.Exceptions
 {
     public class BusinessException : Exception
     {
-        public ErrorCode Code { get; private set; }
-        public string Text { get; private set; }
+        public ErrorCode Code { get; }
+        public string Text { get; }
 
         public BusinessException(string text, ErrorCode code)
             : base(text)

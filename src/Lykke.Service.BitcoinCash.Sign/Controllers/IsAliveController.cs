@@ -1,8 +1,9 @@
 ﻿using System.Linq;
 using System.Net;
-using Lykke.Service.BitcoinCash.Sign.Models;
+using Lykke.Common.Api.Contract.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using IsAliveResponse = Lykke.Service.BitcoinCash.Sign.Models.IsAliveResponse;
 
 namespace Lykke.Service.BitcoinCash.Sign.Controllers
 {

@@ -13,7 +13,7 @@ namespace Lykke.BitcoinCash.Sign.Services.Sign
 {
     internal class SignResult : ISignResult
     {
-        public string TransactionHex { get; set; }
+        public string TransactionHex { get; private set; }
 
 
         public static SignResult Ok(string signedHex)
@@ -42,7 +42,7 @@ namespace Lykke.BitcoinCash.Sign.Services.Sign
             _log = log;
         }
 
-        public async Task<ISignResult> SignAsync(string transactionContext, IEnumerable<string> privateKeys)
+        public ISignResult Sign(string transactionContext, IEnumerable<string> privateKeys)
         {
             var context = Serializer.ToObject<TransactionInfo>(transactionContext);
 
@@ -51,7 +51,7 @@ namespace Lykke.BitcoinCash.Sign.Services.Sign
 
             var secretKeys = privateKeys.Select(p => Key.Parse(p, _network)).ToList();
 
-            Key GetPrivateKey(KeyId pubKeyHash)
+            Key GetPrivateKey(TxDestination pubKeyHash)
             {
                 foreach (var secret in secretKeys)
                 {
@@ -63,7 +63,7 @@ namespace Lykke.BitcoinCash.Sign.Services.Sign
                 return null;
             }
 
-            SigHash hashType = SigHash.All | SigHash.ForkId;
+            const SigHash hashType = SigHash.All | SigHash.ForkId;
 
             for (int i = 0; i < tx.Inputs.Count; i++)
             {
@@ -84,7 +84,7 @@ namespace Lykke.BitcoinCash.Sign.Services.Sign
 
                         tx.Inputs[i].ScriptSig = PayToPubkeyHashTemplate.Instance.GenerateScriptSig(signature, secret.PubKey);
                         continue;
-                    }                    
+                    }
                     throw new BusinessException("Incompatible private key", ErrorCode.IncompatiblePrivateKey);
                 }
 

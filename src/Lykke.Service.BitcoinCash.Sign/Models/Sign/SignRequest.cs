@@ -27,7 +27,7 @@ namespace Lykke.Service.BitcoinCash.Sign.Models.Sign
             {
                 return new[]
                 {
-                    new ValidationResult("Cant parse tx", new[] {nameof(TransactionContext)}),
+                    new ValidationResult("Cant parse tx", new[] {nameof(TransactionContext)})
                 };
             }
 
@@ -42,7 +42,7 @@ namespace Lykke.Service.BitcoinCash.Sign.Models.Sign
             {
                 return new[]
                 {
-                    new ValidationResult("Cant parse privateKey", new[] {nameof(PrivateKeys) }),
+                    new ValidationResult("Cant parse privateKey", new[] {nameof(PrivateKeys) })
                 };
             }
 
