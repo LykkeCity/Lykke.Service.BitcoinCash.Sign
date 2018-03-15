@@ -15,7 +15,7 @@ namespace Lykke.Service.BitcoinCash.Sign.Tests
     public class SignTests
     {
         [Fact]
-        public async Task Can_Sign()
+        public void Can_Sign()
         {
             var network = Network.TestNet;
 
@@ -52,7 +52,7 @@ namespace Lykke.Service.BitcoinCash.Sign.Tests
             };
 
 
-            var signResult = await signer.SignAsync(Serializer.ToString(txInfo),
+            var signResult = signer.Sign(Serializer.ToString(txInfo),
                 new[] { sender.GetWif(network).ToString() });
 
             Assert.True(signResult.TransactionHex != null);
@@ -63,7 +63,7 @@ namespace Lykke.Service.BitcoinCash.Sign.Tests
         }
 
         [Fact]
-        public async Task ThrowErrorOnIncompatibleKey()
+        public void ThrowErrorOnIncompatibleKey()
         {
             var network = Network.TestNet;
 
@@ -100,11 +100,11 @@ namespace Lykke.Service.BitcoinCash.Sign.Tests
                 UsedCoins = coins1.Concat(coins2)
             };
 
-            await Assert.ThrowsAsync<BusinessException>(async () => await signer.SignAsync(Serializer.ToString(txInfo), new[] { invalidSender.GetWif(network).ToString() }));
+            Assert.Throws<BusinessException>(() => signer.Sign(Serializer.ToString(txInfo), new[] { invalidSender.GetWif(network).ToString() }));
         }
 
         #region Helper 
-        private void AssertCorrectlySigned(Transaction tx)
+        private static void AssertCorrectlySigned(Transaction tx)
         {
             for (int i = 0; i < tx.Inputs.Count; i++)
             {
@@ -113,7 +113,7 @@ namespace Lykke.Service.BitcoinCash.Sign.Tests
         }
 
 
-        private ILog GetLog()
+        private static ILog GetLog()
         {
             return new LogToConsole();
         }

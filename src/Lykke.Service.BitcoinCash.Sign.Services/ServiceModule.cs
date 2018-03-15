@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Common.Log;
-using Lykke.BitcoinCash.Sign.Services.BitcoinTransaction;
 using Lykke.BitcoinCash.Sign.Services.Sign;
 using Lykke.Service.BitcoinCash.Sign.Core.Settings.ServiceSettings;
 using Lykke.Service.BitcoinCash.Sign.Core.Sign;

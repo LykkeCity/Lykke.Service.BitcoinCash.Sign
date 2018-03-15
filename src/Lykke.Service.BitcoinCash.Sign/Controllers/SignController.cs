@@ -1,7 +1,8 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
+using Lykke.Common.Api.Contract.Responses;
 using Lykke.Service.BitcoinCash.Sign.Core.Sign;
-using Lykke.Service.BitcoinCash.Sign.Models;
+using Lykke.Service.BitcoinCash.Sign.Extensions;
 using Lykke.Service.BitcoinCash.Sign.Models.Sign;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -17,20 +18,19 @@ namespace Lykke.Service.BitcoinCash.Sign.Controllers
         {
             _transactionSigningService = transactionSigningService;
         }
-        
+
         [HttpPost]
         [SwaggerOperation(nameof(SignRawTx))]
         [ProducesResponseType(typeof(SignOkTransactionResponce), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> SignRawTx([FromBody]SignRequest sourceTx)
+        public IActionResult SignRawTx([FromBody]SignRequest sourceTx)
         {
             if (!ModelState.IsValid)
             {
-
-                return BadRequest(ErrorResponse.Create("ValidationError", ModelState));
+                return BadRequest(ErrorResponse.Create("ValidationError").AddModelStateErrors(ModelState));
             }
 
-            var signResult = await _transactionSigningService.SignAsync(sourceTx.TransactionContext, sourceTx.PrivateKeys);
+            var signResult = _transactionSigningService.Sign(sourceTx.TransactionContext, sourceTx.PrivateKeys);
 
             var respResult = new SignOkTransactionResponce
             {
