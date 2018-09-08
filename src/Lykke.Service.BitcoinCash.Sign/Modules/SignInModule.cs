@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using Lykke.BitcoinCash.Sign.Services;
+using Lykke.Service.BitcoinCash.Sign.Core.Services;
 using Lykke.Service.BitcoinCash.Sign.Core.Settings.ServiceSettings;
 using Lykke.SettingsReader;
 
@@ -21,7 +23,11 @@ namespace Lykke.Service.BitcoinCash.Sign.Modules
             //      .As<IQuotesPublisher>()
             //      .WithParameter(TypedParameter.From(_settings.CurrentValue.QuotesPublication))
 
-       
+            builder.RegisterType<StartupManager>()
+                .As<IStartupManager>();
+
+            builder.RegisterType<ShutdownManager>()
+                .As<IShutdownManager>();
 
             // TODO: Add your dependencies here
         }

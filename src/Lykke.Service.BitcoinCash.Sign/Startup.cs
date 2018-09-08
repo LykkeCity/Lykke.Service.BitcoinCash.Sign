@@ -45,8 +45,11 @@ namespace Lykke.Service.BitcoinCash.Sign
             services.AddSwaggerGen(options =>
             {
                 options.DefaultLykkeConfiguration("v1", "BitcoinCash.Service.Sign");
+                options.DescribeAllEnumsAsStrings();
+                options.DescribeStringEnumsInCamelCase();
             });
             services.AddEmptyLykkeLogging();
+
 
             var builder = new ContainerBuilder();
             var appSettings = Configuration.LoadSettings<AppSettings>();
