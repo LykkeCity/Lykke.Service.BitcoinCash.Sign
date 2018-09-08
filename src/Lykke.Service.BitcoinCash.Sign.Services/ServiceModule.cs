@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Common.Log;
 using Lykke.BitcoinCash.Sign.Services.Sign;
 using Lykke.Service.BitcoinCash.Sign.Core.Settings.ServiceSettings;
 using Lykke.Service.BitcoinCash.Sign.Core.Sign;
@@ -10,11 +9,9 @@ namespace Lykke.BitcoinCash.Sign.Services
 {
     public  class ServiceModule:Module
     {
-        private readonly ILog _log;
         private readonly IReloadingManager<BitcoinCashSignSettings> _settings;
-        public ServiceModule(IReloadingManager<BitcoinCashSignSettings> settings, ILog log)
+        public ServiceModule(IReloadingManager<BitcoinCashSignSettings> settings)
         {
-            _log = log;
             _settings = settings;
         }
 
