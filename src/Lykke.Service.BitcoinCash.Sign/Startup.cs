@@ -80,7 +80,7 @@ namespace Lykke.Service.BitcoinCash.Sign
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseLykkeMiddleware("BitcoinCash.Service.Sign", ex =>
+            app.UseLykkeMiddleware(ex =>
             {
                 if (ex is BusinessException clientError)
                 {
