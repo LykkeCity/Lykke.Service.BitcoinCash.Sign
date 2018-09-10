@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using System.Threading.Tasks;
 using Lykke.Common.Api.Contract.Responses;
 using Lykke.Service.BitcoinCash.Sign.Core.Sign;
 using Lykke.Service.BitcoinCash.Sign.Extensions;

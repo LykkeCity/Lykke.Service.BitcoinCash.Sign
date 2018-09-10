@@ -2,9 +2,6 @@
 {
     public class BitcoinCashSignSettings
     {
-        public DbSettings Db { get; set; }
-        
         public string Network { get; set; }
-        
     }
 }
