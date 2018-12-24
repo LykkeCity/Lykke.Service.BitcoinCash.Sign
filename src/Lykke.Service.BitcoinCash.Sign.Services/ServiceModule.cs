@@ -4,6 +4,7 @@ using Lykke.Service.BitcoinCash.Sign.Core.Settings.ServiceSettings;
 using Lykke.Service.BitcoinCash.Sign.Core.Sign;
 using Lykke.SettingsReader;
 using NBitcoin;
+using NBitcoin.Altcoins;
 
 namespace Lykke.BitcoinCash.Sign.Services
 {
@@ -24,7 +25,7 @@ namespace Lykke.BitcoinCash.Sign.Services
 
         private void RegisterNetwork(ContainerBuilder builder)
         {          
-            builder.RegisterInstance(Network.GetNetwork(_settings.CurrentValue.Network)).As<Network>();
+            builder.RegisterInstance(Network.GetNetwork(_settings.CurrentValue.Network) == Network.Main ? BCash.Instance.Mainnet : BCash.Instance.Testnet).As<Network>();
           
         }
     }

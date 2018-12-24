@@ -56,8 +56,8 @@ namespace Lykke.BitcoinCash.Sign.Services.Sign
 
                 return null;
             }
-
-            const SigHash hashType = SigHash.All | SigHash.ForkId;
+            
+            const SigHash hashType = SigHash.All;
 
             for (int i = 0; i < tx.Inputs.Count; i++)
             {
