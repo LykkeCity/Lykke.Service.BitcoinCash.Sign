@@ -25,7 +25,7 @@ namespace Lykke.BitcoinCash.Sign.Services
 
         private void RegisterNetwork(ContainerBuilder builder)
         {          
-            builder.RegisterInstance(Network.GetNetwork(_settings.CurrentValue.Network) == Network.Main ? BCash.Instance.Mainnet : BCash.Instance.Testnet).As<Network>();
+            builder.RegisterInstance(Network.GetNetwork(_settings.CurrentValue.Network) == Network.Main ? BCash.Instance.Mainnet : BCash.Instance.Regtest).As<Network>();
           
         }
     }
