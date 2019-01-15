@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System;
 using Lykke.Common.Api.Contract.Responses;
 using Lykke.Service.BitcoinCash.Sign.Core.Sign;
 using Lykke.Service.BitcoinCash.Sign.Extensions;
@@ -24,6 +25,8 @@ namespace Lykke.Service.BitcoinCash.Sign.Controllers
         [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.BadRequest)]
         public IActionResult SignRawTx([FromBody]SignRequest sourceTx)
         {
+            throw new Exception("Disabled");
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ErrorResponse.Create("ValidationError").AddModelStateErrors(ModelState));
