@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Lykke.Service.BitcoinCash.Sign.Core.Exceptions;
 using Lykke.Service.BitcoinCash.Sign.Core.Sign;
@@ -38,18 +39,26 @@ namespace Lykke.BitcoinCash.Sign.Services.Sign
 
         public ISignResult Sign(string transactionContext, IEnumerable<string> privateKeys)
         {
-            var context = Serializer.ToObject<TransactionInfo>(transactionContext);
+            try
+            {
+                var context = Serializer.ToObject<TransactionInfo>(transactionContext);
 
-            var tx = Transaction.Parse(context.TransactionHex, _network);
+                var tx = Transaction.Parse(context.TransactionHex, _network);
 
-            var secretKeys = privateKeys.Select(p => Key.Parse(p, _network)).ToArray();
+                var secretKeys = privateKeys.Select(p => Key.Parse(p, _network)).ToArray();
 
-            var signed = _network.CreateTransactionBuilder()
-                .AddCoins(context.UsedCoins)
-                .AddKeys(secretKeys)
-                .SignTransaction(tx);
+                var signed = _network.CreateTransactionBuilder()
+                    .AddCoins(context.UsedCoins)
+                    .AddKeys(secretKeys)
+                    .SignTransaction(tx);
 
-            return SignResult.Ok(signed.ToHex());
+                return SignResult.Ok(signed.ToHex());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }
