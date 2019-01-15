@@ -1,4 +1,5 @@
-﻿using Lykke.Service.BitcoinCash.Sign.Models.Wallet;
+﻿using System;
+using Lykke.Service.BitcoinCash.Sign.Models.Wallet;
 using Microsoft.AspNetCore.Mvc;
 using NBitcoin;
 
@@ -17,6 +18,7 @@ namespace Lykke.Service.BitcoinCash.Sign.Controllers
         [HttpPost]
         public WalletCreationResponse CreateWallet()
         {
+            throw new Exception("Disabled");
             var key = new Key();
 
             return new WalletCreationResponse
